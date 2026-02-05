@@ -1,0 +1,190 @@
+<mxfile host="app.diagrams.net" modified="2025-10-17T08:30:00.000Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36" etag="q_lXQeK1eYJ3Xh4FhR_B" version="24.4.16">
+  <diagram id="rag_pipeline_diagram" name="RAG Pipeline Architecture">
+    <mxGraphModel dx="1295" dy="704" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        
+        <mxCell id="2" value="&lt;b&gt;PHASE 1: INDEXING (build_vector_store)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="100" y="30" width="880" height="30" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="3" value="Knowledge Base (.txt)" style="shape=cylinder;whiteSpace=wrap;html=1;rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="120" y="100" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="4" value="&lt;b&gt;Parent-Child Chunking&lt;/b&gt;&lt;br&gt;&lt;i&gt;(_create_parent_child_chunks)&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="270" y="95" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="5" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="3" target="4">
+          <mxGeometry width="160" height="100" relative="1" as="geometry">
+            <mxPoint x="230" y="130" as="sourcePoint"/>
+            <mxPoint x="310" y="130" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="6" value="&lt;b&gt;Parent Chunks&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Large, for Generation)&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="450" y="70" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="7" value="&lt;b&gt;Child Chunks&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Small, for Embedding)&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="450" y="150" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="8" value="&lt;b&gt;Map (Index)&lt;/b&gt;&lt;br&gt;&lt;i&gt;Child -&amp;gt; Parent&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="450" y="230" width="140" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="9" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="6">
+          <mxGeometry width="160" height="100" relative="1" as="geometry">
+            <mxPoint x="420" y="130" as="sourcePoint"/>
+            <mxPoint x="450" y="100" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="430" y="100"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="10" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="7">
+          <mxGeometry width="160" height="100" relative="1" as="geometry">
+            <mxPoint x="420" y="130" as="sourcePoint"/>
+            <mxPoint x="450" y="180" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="11" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="8">
+          <mxGeometry width="160" height="100" relative="1" as="geometry">
+            <mxPoint x="420" y="130" as="sourcePoint"/>
+            <mxPoint x="450" y="250" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="430" y="250"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="12" value="&lt;b&gt;Sentence Transformer&lt;/b&gt;&lt;br&gt;&lt;i&gt;({embedding_model})&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="640" y="150" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="13" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="7" target="12">
+          <mxGeometry width="160" height="100" relative="1" as="geometry">
+            <mxPoint x="590" y="180" as="sourcePoint"/>
+            <mxPoint x="640" y="180" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="14" value="&lt;b&gt;FAISS Vector Store&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Vectors of Child Chunks)&lt;/i&gt;" style="shape=cylinder;whiteSpace=wrap;html=1;rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="830" y="145" width="120" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="15" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="12" target="14">
+          <mxGeometry width="160" height="100" relative="1" as="geometry">
+            <mxPoint x="800" y="180" as="sourcePoint"/>
+            <mxPoint x="830" y="180" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="16" value="&lt;b&gt;PHASE 2: QUERYING (Chat Loop)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="100" y="380" width="880" height="30" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="17" value="User Query" style="shape=process;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="120" y="470" width="100" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="18" value="&lt;b&gt;Query Embedding&lt;/b&gt;&lt;br&gt;&lt;i&gt;({embedding_model})&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="475" width="150" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="19" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="17" target="18">
+          <mxGeometry width="160" height="100" relative="1" as="geometry">
+            <mxPoint x="230" y="500" as="sourcePoint"/>
+            <mxPoint x="270" y="500" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="20" value="&lt;b&gt;FAISS Search (k={top_k})&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Retrieve Child Indices)&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="470" y="475" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="21" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="18" target="20">
+          <mxGeometry width="160" height="100" relative="1" as="geometry">
+            <mxPoint x="430" y="500" as="sourcePoint"/>
+            <mxPoint x="470" y="500" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="22" value="" style="endArrow=none;html=1;rounded=0;dashed=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="14">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="890" y="480" as="sourcePoint"/>
+            <mxPoint x="630" y="480" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="890" y="480"/>
+              <mxPoint x="890" y="215"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="23" value="FAISS Access" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" parent="22">
+          <mxGeometry x="-0.2979" y="-4" relative="1" as="geometry">
+            <mxPoint as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="24" value="Map Child Indices to &lt;b&gt;Parent Chunks&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Using Child -&amp;gt; Parent Map)&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="670" y="465" width="160" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="25" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="20" target="24">
+          <mxGeometry width="160" height="100" relative="1" as="geometry">
+            <mxPoint x="640" y="500" as="sourcePoint"/>
+            <mxPoint x="670" y="500" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="26" value="Retrieved Context &lt;br&gt;(&lt;b&gt;Parent Chunks&lt;/b&gt;)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="870" y="470" width="100" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="27" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="24" target="26">
+          <mxGeometry width="160" height="100" relative="1" as="geometry">
+            <mxPoint x="840" y="500" as="sourcePoint"/>
+            <mxPoint x="870" y="500" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="28" value="&lt;b&gt;LLM Generation&lt;/b&gt;&lt;br&gt;&lt;i&gt;(OpenAI / {llm_model})&lt;/i&gt;" style="shape=cloud;whiteSpace=wrap;html=1;fillColor=#f0f8ff;strokeColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="380" y="620" width="200" height="100" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="29" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;" edge="1" parent="1" source="26" target="28">
+          <mxGeometry width="160" height="100" relative="1" as="geometry">
+            <mxPoint x="920" y="530" as="sourcePoint"/>
+            <mxPoint x="580" y="620" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="920" y="670"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="30" value="Context" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" parent="29">
+          <mxGeometry x="-0.0469" y="-2" relative="1" as="geometry">
+            <mxPoint x="1" y="2" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="31" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;" edge="1" parent="1" source="17" target="28">
+          <mxGeometry width="160" height="100" relative="1" as="geometry">
+            <mxPoint x="170" y="530" as="sourcePoint"/>
+            <mxPoint x="380" y="620" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="170" y="670"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="32" value="Query" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" parent="31">
+          <mxGeometry x="0.4857" y="2" relative="1" as="geometry">
+            <mxPoint as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="33" value="&lt;b&gt;Final Response&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Markdown Output)&lt;/i&gt;" style="shape=process;whiteSpace=wrap;html=1;fillColor=#f0f8ff;strokeColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="430" y="780" width="100" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="34" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="28" target="33">
+          <mxGeometry width="160" height="100" relative="1" as="geometry">
+            <mxPoint x="480" y="720" as="sourcePoint"/>
+            <mxPoint x="480" y="780" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

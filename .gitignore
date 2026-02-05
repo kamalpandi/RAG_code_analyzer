@@ -1,0 +1,18 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+findings/
+.project_analyzer_cache/
+
+# Ignore only .txt files that start with 'initial-'
+initial-*.txt
+
+# Virtual environments
+.venv
+.vscode
+.env
+*.jsonl

@@ -1,0 +1,98 @@
+<mxfile host="65bd71144e">
+    <diagram name="RAG Pipeline" id="wVoxcRUBJppSp-baEygR">
+        <mxGraphModel dx="-849" dy="1113" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1920" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-21" value="" style="group" parent="1" vertex="1" connectable="0">
+                    <mxGeometry x="2412" y="578" width="1175" height="765" as="geometry"/>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-1" value="Stage 1: Project Analyzer" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1" parent="Ycza8QxyqrDNT-IV9rdJ-21" vertex="1">
+                    <mxGeometry x="193.6813186813187" width="284.0659340659341" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-2" value="Software Project (e.g., Python Codebase)" style="shape=folder;whiteSpace=wrap;html=1;boundedLbl=1;fontSize=12;" parent="Ycza8QxyqrDNT-IV9rdJ-21" vertex="1">
+                    <mxGeometry y="307.5" width="232.41758241758242" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-3" value="ProjectAnalyzer Script" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" parent="Ycza8QxyqrDNT-IV9rdJ-21" vertex="1">
+                    <mxGeometry x="284.0659340659341" y="75" width="180.76923076923077" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-4" value="prompts.json" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" parent="Ycza8QxyqrDNT-IV9rdJ-21" vertex="1">
+                    <mxGeometry x="735.989010989011" y="90" width="154.94505494505495" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-5" value="Reads" style="endArrow=classic;html=1;rounded=0;" parent="Ycza8QxyqrDNT-IV9rdJ-21" source="Ycza8QxyqrDNT-IV9rdJ-3" target="Ycza8QxyqrDNT-IV9rdJ-2" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="232.41758241758242" y="135" as="sourcePoint"/>
+                        <mxPoint x="296.978021978022" y="60" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-6" value="Uses Prompts" style="endArrow=classic;html=1;rounded=0;" parent="Ycza8QxyqrDNT-IV9rdJ-21" source="Ycza8QxyqrDNT-IV9rdJ-3" target="Ycza8QxyqrDNT-IV9rdJ-4" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="477.7472527472528" y="135" as="sourcePoint"/>
+                        <mxPoint x="542.3076923076924" y="60" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-7" value="Generates" style="endArrow=classic;html=1;rounded=0;dashed=1;" parent="Ycza8QxyqrDNT-IV9rdJ-21" target="Ycza8QxyqrDNT-IV9rdJ-8" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="374.4505494505495" y="195" as="sourcePoint"/>
+                        <mxPoint x="374.4505494505495" y="300" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-8" value="rag_documents.txt&lt;br&gt;&lt;b&gt;(Knowledge Base)&lt;/b&gt;" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" parent="Ycza8QxyqrDNT-IV9rdJ-21" vertex="1">
+                    <mxGeometry x="284.0659340659341" y="300" width="180.76923076923077" height="105" as="geometry"/>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-10" value="User Query" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" parent="Ycza8QxyqrDNT-IV9rdJ-21" vertex="1">
+                    <mxGeometry x="645.6043956043957" y="480" width="154.94505494505495" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-11" value="Chatbot Script&lt;br&gt;(Agent + Synthesizer)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" parent="Ycza8QxyqrDNT-IV9rdJ-21" vertex="1">
+                    <mxGeometry x="878.0224175824176" y="450" width="180.76923076923077" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-12" value="Loads" style="endArrow=classic;html=1;rounded=0;" parent="Ycza8QxyqrDNT-IV9rdJ-21" source="Ycza8QxyqrDNT-IV9rdJ-11" target="Ycza8QxyqrDNT-IV9rdJ-13" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="968.407032967033" y="450" as="sourcePoint"/>
+                        <mxPoint x="968.407032967033" y="345" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-13" value="ChromaDB&lt;br&gt;Vector Store" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" parent="Ycza8QxyqrDNT-IV9rdJ-21" vertex="1">
+                    <mxGeometry x="890.9345054945056" y="285" width="154.94505494505495" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-15" value="2. User asks" style="endArrow=classic;html=1;rounded=0;" parent="Ycza8QxyqrDNT-IV9rdJ-21" source="Ycza8QxyqrDNT-IV9rdJ-10" target="Ycza8QxyqrDNT-IV9rdJ-11" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="826.3736263736264" y="525" as="sourcePoint"/>
+                        <mxPoint x="942.5824175824176" y="450" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-16" value="3. Agent Searches (Multi-step)" style="endArrow=classic;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=1;" parent="Ycza8QxyqrDNT-IV9rdJ-21" source="Ycza8QxyqrDNT-IV9rdJ-11" target="Ycza8QxyqrDNT-IV9rdJ-13" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1071.7037362637363" y="510" as="sourcePoint"/>
+                        <mxPoint x="1149.1762637362638" y="345" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1110.44" y="510"/>
+                            <mxPoint x="1110.44" y="345"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-17" value="4. Synthesizer&lt;br&gt;Generates Answer" style="endArrow=classic;html=1;rounded=0;dashed=1;" parent="Ycza8QxyqrDNT-IV9rdJ-21" source="Ycza8QxyqrDNT-IV9rdJ-11" target="Ycza8QxyqrDNT-IV9rdJ-18" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="968.407032967033" y="570" as="sourcePoint"/>
+                        <mxPoint x="968.407032967033" y="645" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-18" value="Final, Detailed Answer" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" parent="Ycza8QxyqrDNT-IV9rdJ-21" vertex="1">
+                    <mxGeometry x="884.4784615384615" y="645" width="167.85714285714286" height="105" as="geometry"/>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-20" value="" style="group" parent="Ycza8QxyqrDNT-IV9rdJ-21" vertex="1" connectable="0">
+                    <mxGeometry x="542.3076923076924" y="285" width="335.7142857142857" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-9" value="Stage 2: Hybrid Agent Chatbot" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1" parent="Ycza8QxyqrDNT-IV9rdJ-20" vertex="1">
+                    <mxGeometry width="335.7142857142857" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="Ycza8QxyqrDNT-IV9rdJ-14" value="1. Loads Into" style="endArrow=classic;html=1;rounded=0;" parent="Ycza8QxyqrDNT-IV9rdJ-21" source="Ycza8QxyqrDNT-IV9rdJ-8" target="Ycza8QxyqrDNT-IV9rdJ-13" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="374.4505494505495" y="420" as="sourcePoint"/>
+                        <mxPoint x="374.4505494505495" y="570" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

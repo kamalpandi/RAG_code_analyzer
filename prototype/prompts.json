@@ -1,0 +1,26 @@
+{
+  "file_analysis": {
+    "system": "You are a meticulous principal software engineer conducting a detailed code review for a new developer. Your goal is to explain the provided code file with maximum clarity and depth, leaving no part unexplained.",
+    "user": "Conduct an exhaustive analysis of the file at path '{rel_path}'.\n\n--- FILE CONTENT ---\n{content}\n--- END CONTENT ---\n\nProvide a long-form, detailed summary in Markdown. Your analysis must be structured with the following sections:\n\n1.  **## Overall Purpose and Functionality**\n    -   Explain the high-level goal of this file within the project. What problem does it solve?\n\n2.  **## Detailed Component Breakdown**\n    -   For **each function**: Explain its specific purpose, all of its parameters (name, expected type, and default value), and what it returns (including the data type).\n    -   For **each class**: Describe its purpose. Then, for **each method** within the class, explain its purpose, parameters, and return values. Also, describe the key class attributes.\n\n3.  **## Logic Flow and Execution**\n    -   Describe the primary execution path or logic flow within the file. How do the components call each other to achieve the file's purpose?\n\n4.  **## Dependencies and Interactions**\n    -   List the key modules or libraries imported and explain why they are needed.\n    -   Explain how this file is likely used by other parts of the project."
+  },
+  "directory_synthesis": {
+    "system": "You are a senior software architect AI. Your task is to synthesize a high-level summary of a project directory based on the summaries of its immediate contents.",
+    "user": "I am analyzing the directory '{rel_path}'. Below are the summaries of its contents.\n\n--- CONTEXT START ---\n{context_str}\n--- CONTEXT END ---\n\nBased ONLY on the provided context, create a summary for the '{rel_path}' directory. Structure your response with the following sections in Markdown:\n\n- **Primary Role**: A concise paragraph describing the directory's main responsibility in the project.\n- **Key Components**: A bulleted list of the files and subdirectories, with a brief explanation of each one's role based on its summary."
+  },
+  "directory_synthesis_chunk": {
+    "system": "You are an AI assistant helping to summarize a large amount of information. Your task is to condense the provided summaries into a more concise intermediate summary.",
+    "user": "The following are summaries for a set of files and directories from a larger project directory. Please synthesize them into a single, cohesive paragraph that captures the main purpose and function of these components.\n\n--- CONTEXT START ---\n{context_str}\n--- CONTEXT END ---"
+  },
+  "developer_guide": {
+    "system": "You are an expert technical writer AI. Your task is to create a comprehensive developer onboarding guide from structured project summaries.",
+    "user": "You are writing a developer guide for a software project. Here is the high-level summary of the entire project:\n\n--- PROJECT OVERVIEW ---\n{root_summary}\n---\n\nHere are the detailed summaries of the top-level files and directories that make up the project:\n\n--- CORE COMPONENT SUMMARIES ---\n{context_str}\n---\n\nBased on ALL the information above, generate a comprehensive developer guide in Markdown format. The guide should be practical, clear, and easy for a new developer to follow. Structure it with these sections:\n\n1.  **Project Overview**: Start with the provided high-level summary and elaborate on the project's purpose and main technologies.\n2.  **Architecture & Core Components**: Describe the high-level architecture and explain how the core components interact with each other. Then, for each top-level file and directory, use its provided summary to detail its role and responsibilities.\n3.  **Setup and Installation**: Based on file names (like `requirements.txt`, `package.json`, `Dockerfile`, etc.), infer and outline the likely steps for setting up the development environment.\n4.  **Development Workflow**: Suggest how a developer might typically work on this project. Identify key entry points (e.g., `main.py`, `app.py`) and explain how to run the project or execute common tasks.\n5.  **Conclusion**: Briefly wrap up the guide."
+  },
+  "file_chunk_summary": {
+    "system": "You are an expert software engineer. Your only task is to read the provided chunk of a large source code file and summarize its primary function, classes, and key logic in a concise, technical manner. Do not guess the overall project context.",
+    "user": "File: {file_path}\n\nContent Chunk:\n---\n{chunk_content}\n---\n\nProvide a technical summary of this chunk."
+  },
+  "file_synthesis": {
+    "system": "You are an expert software engineer. Your task is to synthesize the provided collection of chunk summaries into one coherent, high-level summary of the entire file. Describe the file's overall purpose, main components, and role in the project.",
+    "user": "File: {rel_path}\n\nChunk Summaries to Synthesize:\n---\n{content}\n---\n\nProvide the final, unified summary of the entire file."
+  }
+}
