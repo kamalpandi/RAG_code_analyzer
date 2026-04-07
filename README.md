@@ -1,159 +1,105 @@
-# 🤖 Local LLM Codebase Analyzer
+# Local LLM Codebase Analyzer
 
-This Python script uses a local LLM (like Ollama) to perform a comprehensive analysis of a software project. It recursively scans a directory, analyzes each file and sub-directory, and synthesizes its findings into a structured Markdown knowledge base.
+A local-first tool that uses Ollama to analyze a software project — scanning 
+every file and directory, generating structured summaries, and producing a 
+clean Markdown knowledge base you can actually use.
 
-The goal is to automate the "discovery" phase of understanding a new codebase, providing a high-level overview and detailed summaries that can be used for documentation, onboarding, or as context for a retrieval-augmented generation (RAG) chatbot.
+Built for the "discovery" phase: when you're dropped into an unfamiliar 
+codebase and need to understand it fast. Works well for documentation, 
+onboarding, or as a RAG knowledge source.
 
-## ✨ Key Features
+## What it does
 
-- **Local-First AI:** Leverages a local, OpenAI-compatible API (defaults to Ollama at `http://localhost:11434`). Your code never leaves your machine.
-- **Comprehensive Analysis:** Generates summaries for the entire project, each directory, and each individual file.
-- **Structured File Summaries:** For each file, it identifies:
-  - Overall Purpose
-  - Classes
-  - Functions/Methods
-  - Key Variables
-  - Project Context
-- **Intelligent Caching:** Caches file analyses using a SHA256 hash. The script will only re-analyze files that have changed, saving significant time and compute.
-- **Forced Re-analysis:** A `--force-reanalyze` flag is available to bypass the cache and analyze all files from scratch.
-- **Structured Output:** Generates multiple outputs:
-  - `findings.json`: A detailed JSON file with all raw analysis data.
-  - `initial-summaries.txt`: A human-readable text file containing the streaming log of all summaries.
-  - `knowledge_base.md`: A final, clean, and structured Markdown document perfect for a team wiki.
-- **Large Project Handling:** If the total analysis is too large for the LLM's context window, it will first generate a high-level summary of the summaries to ensure the final knowledge base can be created.
+- Recursively scans a project directory and analyzes each file individually
+- Identifies classes, functions, key variables, and overall purpose per file
+- Summarizes directories bottom-up using the file summaries as context
+- Combines everything into a single, readable Markdown knowledge base
+- SHA256-based caching — only re-analyzes files that have actually changed
+- Handles large projects by summarizing summaries if context window is exceeded
+- Everything runs locally via Ollama. Your code never leaves your machine.
 
 ---
 
-## ⚙️ How It Works
+## How it works
 
-1.  **Root Scan:** The script first performs a high-level scan of the entire project's file and directory structure to determine the main language and overall purpose.
-2.  **File Analysis:** It then walks through every file (respecting the `EXCLUSION_LIST`).
-    - It calculates the file's SHA256 hash.
-    - If the hash matches a cached version (and `--force-reanalyze` is not set), it skips the file.
-    - Otherwise, it sends the file's content to the local LLM with a detailed prompt asking for a structured analysis.
-    - The summary and hash are saved to `findings.json`.
-3.  **Directory Analysis:** After analyzing files, it analyzes directories from the deepest to the shallowest. It provides the LLM with the list of files in that directory and their one-line summaries (pulled from the file analysis) to generate a purpose summary for the directory.
-4.  **Knowledge Base Generation:** Finally, it combines the root summary, all directory summaries, and all file summaries into one large text. It sends this to the LLM one last time with a prompt to reformat it all into a clean, easy-to-read Markdown document.
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-1.  **Python 3.7+**
-2.  **A running Local LLM Server:** This script is configured to work with any OpenAI-compatible API. The default is **Ollama**.
-
-    - [Install Ollama](https://ollama.com/)
-    - Pull a model. The script defaults to `opencoder:1.5b`, which is small and fast. You can also use larger, more powerful models.
-    <!-- end list -->
-
-    ```bash
-    # Pull the default model
-    ollama pull opencoder:1.5b
-
-    # Or pull a more powerful alternative
-    ollama pull codellama:7b
-    ollama pull deepseek-coder:6.7b
-    ```
-
-    - Ensure Ollama is running in the background.
-
-### Installation
-
-1.  **Clone the repository:**
-
-    ```bash
-    git clone https://github.com/your-username/your-repo-name.git
-    cd your-repo-name
-    ```
-
-2.  **Create a `requirements.txt` file:**
-    Create a file named `requirements.txt` and add the following Python libraries:
-
-    ```
-    openai
-    tqdm
-    tiktoken
-    ```
-
-3.  **Install dependencies:**
-
-    ```bash
-    pip install -r requirements.txt
-    ```
+1. Root scan — gets a high-level picture of the project structure and language
+2. File analysis — walks every file, checks the cache, sends changed files 
+   to the LLM for structured analysis
+3. Directory analysis — works bottom-up, using file summaries as context 
+   for each directory
+4. Knowledge base generation — combines all summaries into one clean 
+   Markdown document
 
 ---
 
-## 🏃 Usage
+## Getting started
 
-You can run the script from your terminal.
+### Requirements
 
-### Basic Usage
-
-To analyze the current directory (`.`) using the default settings:
-
+- Python 3.7+
+- Ollama installed and running
 ```bash
-python your_script_name.py
+# Default model (small and fast)
+ollama pull opencoder:1.5b
+
+# Alternatives if you want more accuracy
+ollama pull codellama:7b
+ollama pull deepseek-coder:6.7b
 ```
 
-To analyze a specific project directory:
-
+### Install
 ```bash
-python your_script_name.py /path/to/your/project
+git clone https://github.com/kamalpandi/RAG_code_analyzer.git
+cd RAG_code_analyzer
+pip install openai tqdm tiktoken
 ```
-
-### Options
-
-- `--force-reanalyze`: Force the script to re-analyze all files, even if they are in the cache.
-  ```bash
-  python your_script_name.py --force-reanalyze
-  ```
-
-### Configuration
-
-You can configure the script using environment variables or by editing the file directly.
-
-**Environment Variables:**
-
-- `LOCAL_LLM_BASE_URL`: The base URL of your local LLM's API.
-  - **Default:** `http://localhost:11434`
-- `LOCAL_LLM_MODEL_NAME`: The name of the model you want to use (e.g., `opencoder:1.5b`, `codellama:7b`).
-  - **Default:** `opencoder:1.5b`
-
-**Example:**
-
-```bash
-# Example of running with a different model
-export LOCAL_LLM_MODEL_NAME="codellama:7b"
-python your_script_name.py /path/to/your/project
-```
-
-**In-Script Configuration:**
-
-- `EXCLUSION_LIST`: You can add or remove directory and file names from this list at the top of the script to customize what gets ignored during the scan.
 
 ---
 
-## 📄 Output
+## Usage
+```bash
+# Analyze current directory
+python project_analyzer.py
 
-All outputs are saved in a new directory named `findings/` created in the same directory where the script is located. A new timestamped sub-directory is created for each run.
+# Analyze a specific path
+python project_analyzer.py /path/to/your/project
 
-```
-your-script-directory/
-├── findings/
-│   └── 20251021_120533/  <-- Timestamped run
-│       ├── findings.json
-│       ├── initial-summaries.txt
-│       └── knowledge_base.md
-└── your_script_name.py
+# Force re-analysis (ignore cache)
+python project_analyzer.py --force-reanalyze
 ```
 
-- **`findings.json`**: A complete JSON object containing all raw summaries and file hashes. This is the script's "memory" or "cache."
-- **`initial-summaries.txt`**: A simple text file that logs all summaries as they are generated. Good for debugging or a quick read.
-- **`knowledge_base.md`**: The final, polished Markdown document. This is the most useful file for reading and sharing.
+### Environment variables
+
+| Variable | Default | Description |
+|---|---|---|
+| `LOCAL_LLM_BASE_URL` | `http://localhost:11434` | Ollama API URL |
+| `LOCAL_LLM_MODEL_NAME` | `opencoder:1.5b` | Model to use |
 
 ---
 
-## Disclaimer 
-The above document/readme.md is created using AI i'm lazy...
+## Output
+
+Each run creates a timestamped folder inside `findings/`:
+```
+findings/
+└── 20251021_120533/
+├── findings.json          # Raw summaries and file hashes (the cache)
+├── initial-summaries.txt  # Streaming log, useful for debugging
+└── knowledge_base.md      # The final document — this is what you want
+```
+---
+
+## Tech stack
+
+- Python, Ollama (local OpenAI-compatible API)
+- openai, tqdm, tiktoken
+- uv for package management
+
+---
+
+## Planned
+
+- Async indexing with Celery + Redis for large projects
+- Diff view to show what the agent changed
+- Support for Jupyter notebooks and docs
+- Simple web UI to browse the knowledge base
